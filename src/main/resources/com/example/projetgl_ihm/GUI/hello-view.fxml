@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane fx:id="root" styleClass="stack-pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projetgl_ihm.GUI.GUIController">
+    <StackPane fx:id="loginPane" prefHeight="1080.0" prefWidth="1920.0" styleClass="login-pane" StackPane.alignment="CENTER">
+        <VBox alignment="CENTER" spacing="50" VBox.vgrow="ALWAYS">
+            <Text fill="WHITE" styleClass="title" text="Connexion" />
+            <HBox alignment="CENTER" spacing="10">
+                <VBox alignment="CENTER" spacing="30">
+                    <TextField fx:id="usernameField" promptText="Entrez votre nom d'utilisateur" />
+                    <PasswordField fx:id="passwordField" promptText="Entrez votre mot de passe" />
+                </VBox>
+            </HBox>
+            <Button fx:id="loginButton" onAction="#handleLoginButton" text="Connexion" />
+        </VBox>
+    </StackPane>
+    <Pane fx:id="logoPane" mouseTransparent="true" prefHeight="340.0" prefWidth="608.0" styleClass="logo-pane">
+        <ImageView fitHeight="100" fitWidth="100" preserveRatio="true">
+            <image>
+                <Image url="@logo.png" />
+            </image>
+        </ImageView>
+    </Pane>
+    <StackPane fx:id="loadingPane" mouseTransparent="true" styleClass="loading-pane" visible="false">
+        <VBox alignment="CENTER" spacing="10">
+            <ProgressIndicator />
+            <Text text="Connexion en cours..." />
+        </VBox>
+    </StackPane>
+    <StackPane fx:id="errorPane" mouseTransparent="true" styleClass="error-pane" visible="false">
+        <VBox alignment="CENTER" spacing="250">
+            <Text fx:id="errorLabel" fill="WHITE" mouseTransparent="true" styleClass="title2" text="Nom d'utilisateur ou mot de passe incorrect." />
+            <Button fx:id="retryButton" onAction="#handleRetryButton" text="Réessayer" />
+        </VBox>
+    </StackPane>
+</StackPane>
