@@ -1,9 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.control.Button?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.projetgl_ihm.GUI.ParametresController" prefHeight="630" prefWidth="1120" style="-fx-background-color: #16425B;">
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane style="-fx-background-color: #16425B;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projetgl_ihm.GUI.ParametresController">
+    <GridPane hgap="150.0">
+        <GridPane GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <GridPane alignment="CENTER" hgap="10" prefHeight="755.0" prefWidth="504.0" styleClass="tab-container" vgap="10.0">
+                <Text fill="white" styleClass="title2" text="Users management" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0" />
+                <Text fill="white" styleClass="text-white" text="Add User" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <TextField fx:id="usernameField" promptText="Enter username" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <TextField fx:id="emailField" promptText="Enter password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Button fx:id="addButton" onAction="#handleAddUser" text="Add user" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+<!--                <Text fill="white" styleClass="text-white" text="Search User" GridPane.columnIndex="0" GridPane.rowIndex="3" />-->
+<!--                <TextField fx:id="userField" promptText="Enter username" GridPane.columnIndex="0" GridPane.rowIndex="4" />-->
+<!--                <Button onAction="#handleSearchUser" text="Search" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.valignment="CENTER" />-->
+                <Text fill="white" styleClass="text-white" text="User Rights" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                <ListView fx:id="userRightsList" prefHeight="243.0" prefWidth="464.0" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="6" />
+                <Button onAction="#handleAddRight" text="Add right" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                <Button onAction="#handleRemoveRight" text="Remove right" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                <columnConstraints>
+                    <ColumnConstraints maxWidth="170.0" />
+                    <ColumnConstraints maxWidth="200.0" />
+                    <ColumnConstraints />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints fillHeight="false" percentHeight="5.0" valignment="CENTER" />
+                    <RowConstraints percentHeight="6.0" valignment="BOTTOM" />
+                    <RowConstraints percentHeight="4.0" valignment="TOP" />
+                    <RowConstraints percentHeight="6.0" valignment="BOTTOM" />
+                    <RowConstraints percentHeight="1.0" valignment="TOP" />
+                    <RowConstraints percentHeight="1.0" valignment="BOTTOM" />
+                    <RowConstraints />
+               <RowConstraints />
+                </rowConstraints>
+            </GridPane>
+         <columnConstraints>
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints>
+         <padding>
+            <Insets top="-150.0" />
+         </padding>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+        </GridPane>
+        <GridPane GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <GridPane alignment="CENTER" hgap="30.0" prefWidth="253.0" styleClass="tab-container" vgap="30.0">
+                <Text fill="white" styleClass="title2" text="Application Settings" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <Text fill="white" styleClass="text-white" text="Enable Stand" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <Button fx:id="standButton" onAction="#handleToggleStand" text="On" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Text fill="white" styleClass="text-white" text="Level 2 Input Range" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <TextField fx:id="inputRangeField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Button onAction="#handleSaveInputRange" text="Save" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <columnConstraints>
+                    <ColumnConstraints maxWidth="100.0" />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="115.0" />
+                    <RowConstraints />
+                    <RowConstraints />
+                </rowConstraints>
+            </GridPane>
+         <columnConstraints>
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints>
+        </GridPane>
+
+        <columnConstraints>
+            <ColumnConstraints maxWidth="601.0" minWidth="98.0" prefWidth="504.0" />
+         <ColumnConstraints maxWidth="891.0" minWidth="388.0" prefWidth="485.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints />
+        </rowConstraints>
+      <padding>
+         <Insets bottom="-180.0" left="25.0" right="25.0" />
+      </padding>
+    </GridPane>
+
     <children>
-        <Button fx:id="retourButton" layoutX="10" layoutY="10" text="Retour" onAction="#retourAction"/>
+        <Button fx:id="retourButton" onAction="#retourAction" text="Retour" AnchorPane.bottomAnchor="10" AnchorPane.rightAnchor="10" />
     </children>
 </AnchorPane>
