@@ -47,6 +47,10 @@ public class ParametresController {
     private Button standF2Button;
     @FXML
     private Button addButton;
+    @FXML
+    private Button searchButton;
+    @FXML
+    private Button rightButton;
 
     @FXML
     private TextField inputRangeField;
@@ -72,6 +76,16 @@ public class ParametresController {
 
     @FXML
     void handleSearchUser() {
+        // Code to add user
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO, new KeyValue(searchButton.scaleXProperty(), 1.0), new KeyValue(searchButton.scaleYProperty(), 1.0)),
+                new KeyFrame(Duration.millis(100), new KeyValue(searchButton.scaleXProperty(), 1.2), new KeyValue(searchButton.scaleYProperty(), 1.2)),
+                new KeyFrame(Duration.millis(200), new KeyValue(searchButton.scaleXProperty(), 0.8), new KeyValue(searchButton.scaleYProperty(), 0.8)),
+                new KeyFrame(Duration.millis(300), new KeyValue(searchButton.scaleXProperty(), 1.1), new KeyValue(searchButton.scaleYProperty(), 1.1)),
+                new KeyFrame(Duration.millis(400), new KeyValue(searchButton.scaleXProperty(), 0.9), new KeyValue(searchButton.scaleYProperty(), 0.9)),
+                new KeyFrame(Duration.millis(500), new KeyValue(searchButton.scaleXProperty(), 1.0), new KeyValue(searchButton.scaleYProperty(), 1.0))
+        );
+        timeline.play();
         // Code to search for user
         // Create the ListView and the ObservableList to hold the items
         ObservableList<String> userList = FXCollections.observableArrayList();
@@ -90,6 +104,16 @@ public class ParametresController {
 
     @FXML
     void handleChangeRight() {
+        // Code to add user
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO, new KeyValue(rightButton.scaleXProperty(), 1.0), new KeyValue(rightButton.scaleYProperty(), 1.0)),
+                new KeyFrame(Duration.millis(100), new KeyValue(rightButton.scaleXProperty(), 1.2), new KeyValue(rightButton.scaleYProperty(), 1.2)),
+                new KeyFrame(Duration.millis(200), new KeyValue(rightButton.scaleXProperty(), 0.8), new KeyValue(rightButton.scaleYProperty(), 0.8)),
+                new KeyFrame(Duration.millis(300), new KeyValue(rightButton.scaleXProperty(), 1.1), new KeyValue(rightButton.scaleYProperty(), 1.1)),
+                new KeyFrame(Duration.millis(400), new KeyValue(rightButton.scaleXProperty(), 0.9), new KeyValue(rightButton.scaleYProperty(), 0.9)),
+                new KeyFrame(Duration.millis(500), new KeyValue(rightButton.scaleXProperty(), 1.0), new KeyValue(rightButton.scaleYProperty(), 1.0))
+        );
+        timeline.play();
         String username = userRightsList.getSelectionModel().getSelectedItem().split(" : ")[0];
         String grade = userRightsList.getSelectionModel().getSelectedItem().split(" : ")[1];
 
@@ -113,6 +137,16 @@ public class ParametresController {
 
     @FXML
     void handleToggleStandF1() {
+        // Code to add user
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO, new KeyValue(standF1Button.scaleXProperty(), 1.0), new KeyValue(standF1Button.scaleYProperty(), 1.0)),
+                new KeyFrame(Duration.millis(100), new KeyValue(standF1Button.scaleXProperty(), 1.2), new KeyValue(standF1Button.scaleYProperty(), 1.2)),
+                new KeyFrame(Duration.millis(200), new KeyValue(standF1Button.scaleXProperty(), 0.8), new KeyValue(standF1Button.scaleYProperty(), 0.8)),
+                new KeyFrame(Duration.millis(300), new KeyValue(standF1Button.scaleXProperty(), 1.1), new KeyValue(standF1Button.scaleYProperty(), 1.1)),
+                new KeyFrame(Duration.millis(400), new KeyValue(standF1Button.scaleXProperty(), 0.9), new KeyValue(standF1Button.scaleYProperty(), 0.9)),
+                new KeyFrame(Duration.millis(500), new KeyValue(standF1Button.scaleXProperty(), 1.0), new KeyValue(standF1Button.scaleYProperty(), 1.0))
+        );
+        timeline.play();
         if (standF1Button.getText().equals("On")) {
 
 
@@ -143,6 +177,16 @@ public class ParametresController {
 
     @FXML
     void handleToggleStandF2() {
+        // Code to add user
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO, new KeyValue(standF2Button.scaleXProperty(), 1.0), new KeyValue(standF2Button.scaleYProperty(), 1.0)),
+                new KeyFrame(Duration.millis(100), new KeyValue(standF2Button.scaleXProperty(), 1.2), new KeyValue(standF2Button.scaleYProperty(), 1.2)),
+                new KeyFrame(Duration.millis(200), new KeyValue(standF2Button.scaleXProperty(), 0.8), new KeyValue(standF2Button.scaleYProperty(), 0.8)),
+                new KeyFrame(Duration.millis(300), new KeyValue(standF2Button.scaleXProperty(), 1.1), new KeyValue(standF2Button.scaleYProperty(), 1.1)),
+                new KeyFrame(Duration.millis(400), new KeyValue(standF2Button.scaleXProperty(), 0.9), new KeyValue(standF2Button.scaleYProperty(), 0.9)),
+                new KeyFrame(Duration.millis(500), new KeyValue(standF2Button.scaleXProperty(), 1.0), new KeyValue(standF2Button.scaleYProperty(), 1.0))
+        );
+        timeline.play();
         if (standF2Button.getText().equals("On")) {
 
 

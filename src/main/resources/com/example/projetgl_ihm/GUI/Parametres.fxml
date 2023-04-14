@@ -16,10 +16,10 @@
                 <Button fx:id="addButton" onAction="#handleAddUser" text="Add user" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                 <Text fill="white" styleClass="text-white" text="Search User" GridPane.columnIndex="0" GridPane.rowIndex="3" />
                 <TextField fx:id="userField" promptText="Enter username" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                <Button onAction="#handleSearchUser" text="Search" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                <Button  fx:id="searchButton" onAction="#handleSearchUser" text="Search" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
                 <Text fill="white" styleClass="text-white" text="User Rights" GridPane.columnIndex="0" GridPane.rowIndex="5" />
                 <ListView fx:id="userRightsList" prefHeight="243.0" prefWidth="464.0" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="6" />
-                <Button onAction="#handleChangeRight" text="Change right" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                <Button fx:id="rightButton" onAction="#handleChangeRight" text="Change right" GridPane.columnIndex="0" GridPane.rowIndex="7" />
                 <columnConstraints>
                     <ColumnConstraints maxWidth="170.0" />
                     <ColumnConstraints maxWidth="200.0" />
