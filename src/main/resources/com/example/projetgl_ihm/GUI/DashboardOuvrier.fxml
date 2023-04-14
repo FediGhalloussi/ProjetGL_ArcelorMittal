@@ -9,6 +9,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.projetgl_ihm.GUI.DashboardOuvrierController" prefHeight="630" prefWidth="1120" style="-fx-background-color: #16425B;">
     <children>
         <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
@@ -19,10 +21,25 @@
                             <children>
                                 <Text text="Nom : Fedi" styleClass="title" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                 <Text fx:id="nomLabel" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                                <Text text="Numéro d'Atelier : 1" styleClass="title" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                                <Text fx:id="numAtelierLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                <Text text="Numéro d'équipement : 10" styleClass="title" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                                <Text fx:id="numEquipementLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <Label text="Numéro d'Atelier :" styleClass="title" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                <ChoiceBox fx:id="numAtelierChoiceBox" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="F1" />
+                                            <String fx:value="F2" />
+                                        </FXCollections>
+                                    </items>
+                                </ChoiceBox>
+                                <Label text="Numéro d'équipement :" styleClass="title" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                <ChoiceBox fx:id="numEquipementChoiceBox" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="1939351" />
+                                        </FXCollections>
+                                    </items>
+                                </ChoiceBox>
+                                <Label text="Compute Time :" styleClass="title" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                <TextField fx:id="computeTimeTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                             </children>
                         </GridPane>
                     </content>
