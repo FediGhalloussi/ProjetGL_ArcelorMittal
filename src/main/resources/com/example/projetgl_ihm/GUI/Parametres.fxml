@@ -14,9 +14,9 @@
                 <TextField fx:id="usernameField" promptText="Enter username" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                 <TextField fx:id="emailField" promptText="Enter password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <Button fx:id="addButton" onAction="#handleAddUser" text="Add user" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-<!--                <Text fill="white" styleClass="text-white" text="Search User" GridPane.columnIndex="0" GridPane.rowIndex="3" />-->
-<!--                <TextField fx:id="userField" promptText="Enter username" GridPane.columnIndex="0" GridPane.rowIndex="4" />-->
-<!--                <Button onAction="#handleSearchUser" text="Search" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.valignment="CENTER" />-->
+                <Text fill="white" styleClass="text-white" text="Search User" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <TextField fx:id="userField" promptText="Enter username" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <Button onAction="#handleSearchUser" text="Search" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
                 <Text fill="white" styleClass="text-white" text="User Rights" GridPane.columnIndex="0" GridPane.rowIndex="5" />
                 <ListView fx:id="userRightsList" prefHeight="243.0" prefWidth="464.0" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="6" />
                 <Button onAction="#handleAddRight" text="Add right" GridPane.columnIndex="0" GridPane.rowIndex="7" />
@@ -29,13 +29,16 @@
                 <rowConstraints>
                     <RowConstraints fillHeight="false" percentHeight="5.0" valignment="CENTER" />
                     <RowConstraints percentHeight="6.0" valignment="BOTTOM" />
-                    <RowConstraints percentHeight="4.0" valignment="TOP" />
+                    <RowConstraints percentHeight="6.0" valignment="TOP" />
                     <RowConstraints percentHeight="6.0" valignment="BOTTOM" />
-                    <RowConstraints percentHeight="1.0" valignment="TOP" />
-                    <RowConstraints percentHeight="1.0" valignment="BOTTOM" />
+                    <RowConstraints percentHeight="6.0" valignment="TOP" />
+                    <RowConstraints percentHeight="5.0" valignment="BOTTOM" />
                     <RowConstraints />
                <RowConstraints />
                 </rowConstraints>
+            <GridPane.margin>
+               <Insets />
+            </GridPane.margin>
             </GridPane>
          <columnConstraints>
             <ColumnConstraints />
