@@ -3,6 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.XYChart?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.text.Font?>
 
@@ -22,6 +25,27 @@
                                 <Text fx:id="numEquipementLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                             </children>
                         </GridPane>
+                    </content>
+                </TitledPane>
+                <TitledPane text="Graphiques" collapsible="false">
+                    <content>
+                        <VBox spacing="10">
+                            <children>
+                                <HBox spacing="10">
+                                    <CheckBox fx:id="frictionCheckBox" text="Friction" onAction="#afficherGraphiques" />
+                                    <CheckBox fx:id="speedCheckBox" text="Speed" onAction="#afficherGraphiques" />
+                                    <CheckBox fx:id="sigmaCheckBox" text="Sigma" onAction="#afficherGraphiques" />
+                                </HBox>
+                                <LineChart fx:id="lineChart" title="Courbes" createSymbols="false">
+                                    <xAxis>
+                                        <NumberAxis label="Temps" tickUnit="1" />
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis label="Valeur" />
+                                    </yAxis>
+                                </LineChart>
+                            </children>
+                        </VBox>
                     </content>
                 </TitledPane>
             </children>

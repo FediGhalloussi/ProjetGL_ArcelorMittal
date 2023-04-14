@@ -28,7 +28,6 @@ public class LoginUtil {
             stmt.setString(2, password);
 
             rs = stmt.executeQuery();
-            System.out.println(rs);
 
             if (rs.next()) {
                 String grade = rs.getString("grade");
