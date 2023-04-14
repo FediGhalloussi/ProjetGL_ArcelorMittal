@@ -76,8 +76,8 @@ public class GUIController {
     private void handleLoginButton(ActionEvent event) {
         String username = usernameField.getText();
         String password = passwordField.getText();
-        //Employee employee = LoginUtil.authenticateUser(username, password);
-        if (/*employee != null*/username.equals("admin")) {
+        Employee employee = LoginUtil.authenticateUser(username, password);
+        if (employee != null) {
             loadingPane.setVisible(true);
             // Affiche le loadingPane pendant que le traitement de la connexion est en cours
             // Animation de zoom-out sur le bouton de réessai
