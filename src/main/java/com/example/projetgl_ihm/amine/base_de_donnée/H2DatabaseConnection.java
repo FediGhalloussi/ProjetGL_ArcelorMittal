@@ -267,7 +267,7 @@ public class H2DatabaseConnection {
 
         int Time = computeTime;
 // Remplir les listes avec des valeurs de temps et de mesure
-        for (int i = 0; i < xtimeList.size()-Time; i += Time) {
+        for (int i = 0; i < rollingTorqueList.size()-Time; i += Time) {
             xtimeValue.add(xtimeList.get(i));
             frictionValue.add(frictionList.get(i));
             sigmaMoyValue.add(sigmaMoyList.get(i));

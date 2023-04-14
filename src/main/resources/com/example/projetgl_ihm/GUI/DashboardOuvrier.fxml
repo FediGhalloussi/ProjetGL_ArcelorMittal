@@ -25,8 +25,8 @@
                                 <ChoiceBox fx:id="numAtelierChoiceBox" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                     <items>
                                         <FXCollections fx:factory="observableArrayList">
-                                            <String fx:value="F1" />
                                             <String fx:value="F2" />
+                                            <String fx:value="F3" />
                                         </FXCollections>
                                     </items>
                                 </ChoiceBox>
