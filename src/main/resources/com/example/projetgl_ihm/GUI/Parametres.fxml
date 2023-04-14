@@ -55,11 +55,13 @@
         <GridPane GridPane.columnIndex="1" GridPane.rowIndex="0">
             <GridPane alignment="CENTER" hgap="30.0" prefWidth="253.0" styleClass="tab-container" vgap="30.0">
                 <Text fill="white" styleClass="title2" text="Application Settings" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                <Text fill="white" styleClass="text-white" text="Enable Stand" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                <Button fx:id="standButton" onAction="#handleToggleStand" text="On" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <Text fill="white" styleClass="text-white" text="Level 2 Input Range" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                <TextField fx:id="inputRangeField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <Button onAction="#handleSaveInputRange" text="Save" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <Text fill="white" styleClass="text-white" text="Stand F1" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <Button fx:id="standF1Button" onAction="#handleToggleStandF1" text="On" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Text fill="white" styleClass="text-white" text="Stand F2" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <Button fx:id="standF2Button" onAction="#handleToggleStandF2" text="On" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Text fill="white" styleClass="text-white" text="Level 2 Input Range" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <TextField fx:id="inputRangeField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Button onAction="#handleSaveInputRange" text="Save" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                 <columnConstraints>
                     <ColumnConstraints maxWidth="100.0" />
                     <ColumnConstraints />

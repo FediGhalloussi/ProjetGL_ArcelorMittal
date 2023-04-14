@@ -42,7 +42,9 @@ public class ParametresController {
     private ListView<String> userRightsList;
 
     @FXML
-    private Button standButton;
+    private Button standF1Button;
+    @FXML
+    private Button standF2Button;
     @FXML
     private Button addButton;
 
@@ -65,12 +67,25 @@ public class ParametresController {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        registerUser(username, password,"worker");
+        registerUser(username, password, "worker");
     }
 
     @FXML
     void handleSearchUser() {
         // Code to search for user
+        // Create the ListView and the ObservableList to hold the items
+        ObservableList<String> userList = FXCollections.observableArrayList();
+
+        // Retrieve all the employees from the database
+        List<Employee> employees = searchUsers(userField.getText());
+
+        // Add the usernames of the employees to the userList
+        for (Employee employee : employees) {
+            userList.add(employee.getUsername() + " : " + employee.getGrade());
+        }
+
+        // Set the items of the ListView to the userList
+        userRightsList.setItems(userList);
     }
 
     @FXML
@@ -97,9 +112,63 @@ public class ParametresController {
 
 
     @FXML
-    void handleToggleStand() {
-        // Code to enable/disable stand
+    void handleToggleStandF1() {
+        if (standF1Button.getText().equals("On")) {
+
+
+            // Récupérer la liste des classes CSS actuelles du bouton
+            ObservableList<String> styleClasses = standF1Button.getStyleClass();
+
+            // Ajouter la classe CSS newClass
+            styleClasses.add("button-red");
+
+            // Mettre à jour les classes CSS du bouton
+            standF1Button.setStyle("-fx-background-color: red;");
+            standF1Button.setText("Off");
+        }
+        else {
+
+
+            // Récupérer la liste des classes CSS actuelles du bouton
+            ObservableList<String> styleClasses = standF1Button.getStyleClass();
+
+            // Ajouter la classe CSS newClass
+            styleClasses.add("button-red");
+
+            // Mettre à jour les classes CSS du bouton
+            standF1Button.setStyle("-fx-background-color: green;");
+            standF1Button.setText("On");
+        }
     }
+
+    @FXML
+    void handleToggleStandF2() {
+        if (standF2Button.getText().equals("On")) {
+
+
+            // Récupérer la liste des classes CSS actuelles du bouton
+            ObservableList<String> styleClasses = standF2Button.getStyleClass();
+
+            // Ajouter la classe CSS newClass
+            styleClasses.add("button-red");
+
+            // Mettre à jour les classes CSS du bouton
+            standF2Button.setStyle("-fx-background-color: red;");
+            standF2Button.setText("Off");
+        }
+        else {
+
+
+            // Récupérer la liste des classes CSS actuelles du bouton
+            ObservableList<String> styleClasses = standF2Button.getStyleClass();
+
+            // Ajouter la classe CSS newClass
+            styleClasses.add("button-red");
+
+            // Mettre à jour les classes CSS du bouton
+            standF2Button.setStyle("-fx-background-color: green;");
+            standF2Button.setText("On");
+        }    }
 
     @FXML
     void handleSaveInputRange() {

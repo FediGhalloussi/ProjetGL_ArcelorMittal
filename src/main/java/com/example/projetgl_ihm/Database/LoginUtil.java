@@ -226,4 +226,64 @@ public class LoginUtil {
             }
         }
     }
+
+    public static List<Employee> searchUsers(String search) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<Employee> users = new ArrayList<>();
+
+        try {
+            // Establish a connection to the database
+            Class.forName("org.h2.Driver");
+
+            // Replace with your own database connection details
+            String url = "jdbc:h2:tcp://localhost/~/test";
+            String user = "projetGL";
+            String password_db = "afa";
+            connection = DriverManager.getConnection(url, user, password_db);
+            // Retrieve the users whose usernames contain the search string from the database
+            statement = connection.prepareStatement("SELECT * FROM Users WHERE Username LIKE ?");
+            statement.setString(1, "%" + search + "%");
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                // Create a new Employee object based on the user's grade
+                String grade = resultSet.getString("Grade");
+                Employee employee;
+
+                if (grade.equals("Worker")) {
+                    employee = new Worker(resultSet.getString("username"),resultSet.getString("password"));
+                } else {
+                    employee = new Engineer(resultSet.getString("username"),resultSet.getString("password"));
+                }
+
+                users.add(employee);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                // Close the database resources
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+
+                if (statement != null) {
+                    statement.close();
+                }
+
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return users;
+    }
 }

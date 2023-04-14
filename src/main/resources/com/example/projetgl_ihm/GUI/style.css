@@ -173,6 +173,15 @@
         -fx-border-radius: 4px;
         -fx-cursor: hand;
     }
+    .button-red {
+        -fx-background-color: red;
+        -fx-text-fill: white;
+        -fx-font-size: 14px;
+        -fx-font-weight: bold;
+        -fx-padding: 8px 16px;
+        -fx-border-radius: 4px;
+        -fx-cursor: hand;
+    }
 
     .button:hover {
         -fx-background-color: #3e8e41;
