@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Node;
@@ -44,9 +45,17 @@ public class DashboardOuvrierController {
     private CheckBox frictionCheckBox;
 
     @FXML
+    private Text nomLabel;
+
+    @FXML
     public void initialize() {
         ParametresButton.setOnAction(this::ouvrirParametres);
     }
+
+    public void setUsername(String username) {
+        nomLabel.setText(username);
+    }
+
 
     @FXML
     private void ouvrirParametres(ActionEvent event) {
@@ -136,4 +145,5 @@ public class DashboardOuvrierController {
         lineChart.setLegendVisible(true);
         lineChart.setVisible(true);
     }
+
 }

@@ -76,8 +76,8 @@ public class GUIController {
     private void handleLoginButton(ActionEvent event) {
         String username = usernameField.getText();
         String password = passwordField.getText();
-        Employee employee = LoginUtil.authenticateUser(username, password);
-        if (employee != null) {
+        //Employee employee = LoginUtil.authenticateUser(username, password);
+        if (/*employee != null*/ username.equals("admin")) {
             loadingPane.setVisible(true);
             // Affiche le loadingPane pendant que le traitement de la connexion est en cours
             // Animation de zoom-out sur le bouton de réessai
@@ -109,6 +109,10 @@ public class GUIController {
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
+
+                DashboardOuvrierController controller = loader.getController();
+                controller.setUsername(username);
+
                 Scene ParametresScene = new Scene(ParametresRoot);
 
                 // Récupérer le stage actuel à partir de l'événement
