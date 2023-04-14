@@ -30,7 +30,6 @@ public class DashboardOuvrierController {
 
             // Récupérer le stage actuel à partir de l'événement
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
             stage.setScene(ParametresScene); // Remplacer la scène actuelle par la scène des paramètres
         } catch (IOException e) {
             e.printStackTrace();

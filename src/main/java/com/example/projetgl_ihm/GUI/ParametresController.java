@@ -1,6 +1,8 @@
 package com.example.projetgl_ihm.GUI;
 
 import java.io.IOException;
+
+import com.example.projetgl_ihm.GUI.DashboardOuvrierController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +25,7 @@ public class ParametresController {
     @FXML
     private void retourAction(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("DashboardOuvrierController.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("DashboardOuvrier.fxml"));
             Parent dashboardRoot = loader.load();
             Scene dashboardScene = new Scene(dashboardRoot);
 

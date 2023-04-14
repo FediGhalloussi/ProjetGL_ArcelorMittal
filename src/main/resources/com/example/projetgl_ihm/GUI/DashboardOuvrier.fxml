@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.control.Button?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.projetgl_ihm.GUI.ParametresController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.projetgl_ihm.GUI.DashboardOuvrierController" prefHeight="630" prefWidth="1120" style="-fx-background-color: #16425B;">
     <children>
-        <Button fx:id="retourButton" layoutX="10" layoutY="10" text="Retour" onAction="#retourAction"/>
+        <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
+            <children>
+                <TitledPane text="Informations de l'ouvrier" collapsible="false">
+                    <content>
+                        <GridPane hgap="10" vgap="10">
+                            <children>
+                                <Text text="Nom : Fedi" styleClass="title" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                <Text fx:id="nomLabel" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                <Text text="Numéro d'Atelier : 1" styleClass="title" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                <Text fx:id="numAtelierLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Text text="Numéro d'équipement : 10" styleClass="title" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                <Text fx:id="numEquipementLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            </children>
+                        </GridPane>
+                    </content>
+                </TitledPane>
+            </children>
+        </VBox>
+        <Button fx:id="ParametresButton" text="Paramètres" AnchorPane.bottomAnchor="10" AnchorPane.rightAnchor="10" onAction="#ouvrirParametres" />
     </children>
 </AnchorPane>

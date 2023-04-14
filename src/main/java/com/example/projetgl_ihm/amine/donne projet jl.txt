@@ -1,0 +1,5 @@
+Chemin du jar h2 : C:\Program Files (x86)\H2\bin
+Chemin diagrame UML : 
+Chemin base de donnée h2 ( connexion to url ) : jdbc:h2:tcp://localhost/~/test
+Nom d’utilisateur : projetGL 
+Mot de passe : afa

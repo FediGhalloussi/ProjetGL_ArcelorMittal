@@ -1,0 +1,2 @@
+case	Errors	OffsetYield	Friction	Rolling_Torque	Sigma_Moy	Sigma_Ini	Sigma_Out	Sigma_Max	Force_Error(%)	Slip_Error(%)	Has_Converged
+1	VOID	1.698400e+02	2.145481e-01	7.921971e+04	1.698400e+02	1.698400e+02	1.698400e+02	1.698400e+02	7.685028e-06	0.000000e+00	YES
