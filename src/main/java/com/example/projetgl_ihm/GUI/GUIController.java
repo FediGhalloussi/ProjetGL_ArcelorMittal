@@ -102,7 +102,7 @@ public class GUIController {
 //                alert.setTitle("Connexion réussie");
 //                alert.setHeaderText("Bienvenue, " + username + " !");
 //                alert.showAndWait();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("Parametres.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("DashboardOuvrier.fxml"));
                 Parent ParametresRoot = null;
                 try {
                     ParametresRoot = loader.load();
