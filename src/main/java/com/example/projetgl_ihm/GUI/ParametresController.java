@@ -34,8 +34,6 @@ public class ParametresController {
     @FXML
     private TextField passwordField;
 
-    @FXML
-    private ListView<String> userList;
 
     @FXML
     private TextField userField;
@@ -54,16 +52,6 @@ public class ParametresController {
     @FXML
     void handleAddUser() {
         // Code to add user
-
-    }
-
-    @FXML
-    void handleSearchUser() {
-        // Code to search for user
-    }
-
-    @FXML
-    void handleAddRight() {
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(addButton.scaleXProperty(), 1.0), new KeyValue(addButton.scaleYProperty(), 1.0)),
                 new KeyFrame(Duration.millis(100), new KeyValue(addButton.scaleXProperty(), 1.2), new KeyValue(addButton.scaleYProperty(), 1.2)),
@@ -81,9 +69,32 @@ public class ParametresController {
     }
 
     @FXML
-    void handleRemoveRight() {
-        // Code to remove user right
+    void handleSearchUser() {
+        // Code to search for user
     }
+
+    @FXML
+    void handleChangeRight() {
+        String username = userRightsList.getSelectionModel().getSelectedItem().split(" : ")[0];
+        String grade = userRightsList.getSelectionModel().getSelectedItem().split(" : ")[1];
+
+        // Create the ListView and the ObservableList to hold the items
+        ObservableList<String> userList = FXCollections.observableArrayList();
+
+        // Retrieve all the employees from the database
+        List<Employee> employees = getAllUsers();
+
+        // Add the usernames of the employees to the userList
+        for (Employee employee : employees) {
+            userList.add(employee.getUsername() + " : " + employee.getGrade());
+        }
+
+        // Set the items of the ListView to the userList
+        userRightsList.setItems(userList);
+
+
+    }
+
 
     @FXML
     void handleToggleStand() {
@@ -106,15 +117,15 @@ public class ParametresController {
         ObservableList<String> userList = FXCollections.observableArrayList();
 
         // Retrieve all the employees from the database
-        List<Employee> employees = getAllUsers();
-
-        // Add the usernames of the employees to the userList
-        for (Employee employee : employees) {
-            userList.add(employee.getUsername() + " : " + employee.getGrade());
-        }
-
-        // Set the items of the ListView to the userList
-        userRightsList.setItems(userList);
+//        List<Employee> employees = getAllUsers();
+//
+//        // Add the usernames of the employees to the userList
+//        for (Employee employee : employees) {
+//            userList.add(employee.getUsername() + " : " + employee.getGrade());
+//        }
+//
+//        // Set the items of the ListView to the userList
+//        userRightsList.setItems(userList);
     }
 
 

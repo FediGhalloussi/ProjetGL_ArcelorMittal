@@ -19,8 +19,7 @@
                 <Button onAction="#handleSearchUser" text="Search" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
                 <Text fill="white" styleClass="text-white" text="User Rights" GridPane.columnIndex="0" GridPane.rowIndex="5" />
                 <ListView fx:id="userRightsList" prefHeight="243.0" prefWidth="464.0" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="6" />
-                <Button onAction="#handleAddRight" text="Add right" GridPane.columnIndex="0" GridPane.rowIndex="7" />
-                <Button onAction="#handleRemoveRight" text="Remove right" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                <Button onAction="#handleChangeRight" text="Change right" GridPane.columnIndex="0" GridPane.rowIndex="7" />
                 <columnConstraints>
                     <ColumnConstraints maxWidth="170.0" />
                     <ColumnConstraints maxWidth="200.0" />
@@ -91,7 +90,6 @@
          <Insets bottom="-180.0" left="25.0" right="25.0" />
       </padding>
     </GridPane>
-
     <children>
         <Button fx:id="retourButton" onAction="#retourAction" text="Retour" AnchorPane.bottomAnchor="10" AnchorPane.rightAnchor="10" />
     </children>

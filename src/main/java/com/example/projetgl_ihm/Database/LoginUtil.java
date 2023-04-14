@@ -161,4 +161,69 @@ public class LoginUtil {
             }
         }
     }
+
+    public void updateUserGrade(String username) {
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            // Establish a connection to the database
+            Class.forName("org.h2.Driver");
+
+            // Replace with your own database connection details
+            String url = "jdbc:h2:tcp://localhost/~/test";
+            String user = "projetGL";
+            String password_db = "afa";
+            conn = DriverManager.getConnection(url, user, password_db);
+            // Retrieve the user's current grade from the database
+            statement = conn.prepareStatement("SELECT * FROM USERS WHERE Username = ?");
+            statement.setString(1, username);
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                // Update the user's grade
+                String currentGrade = resultSet.getString("Grade");
+                String newGrade;
+
+                if (currentGrade.equals("Worker")) {
+                    newGrade = "Engineer";
+                } else {
+                    newGrade = "Worker";
+                }
+
+                statement = conn.prepareStatement("UPDATE Users SET Grade = ? WHERE Username = ?");
+                statement.setString(1, newGrade);
+                statement.setString(2, username);
+
+                statement.executeUpdate();
+
+                System.out.println("User grade updated!");
+            } else {
+                // User not found
+                System.out.println("User not found.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                // Close the database resources
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+
+                if (statement != null) {
+                    statement.close();
+                }
+
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
