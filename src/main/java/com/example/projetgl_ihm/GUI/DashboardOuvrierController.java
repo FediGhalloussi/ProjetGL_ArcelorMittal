@@ -48,14 +48,34 @@ public class DashboardOuvrierController {
     private Text nomLabel;
 
     @FXML
+    private Button logoutButton;
+
+
+    @FXML
     public void initialize() {
         ParametresButton.setOnAction(this::ouvrirParametres);
+        logoutButton.setOnAction(this::handleLogoutButton);
     }
 
     public void setUsername(String username) {
         nomLabel.setText(username);
     }
 
+
+    @FXML
+    private void handleLogoutButton(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
+            Parent loginRoot = loader.load();
+            Scene loginScene = new Scene(loginRoot);
+
+            // Récupérer le stage actuel à partir de l'événement
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(loginScene); // Remplacer la scène actuelle par la scène de connexion
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private void ouvrirParametres(ActionEvent event) {
