@@ -1,17 +1,35 @@
-package com.example.projetgl_ihm.dtaabase.base_de_donnée;
+/**
+ * Cette classe permet de se connecter à une base de données H2 en utilisant le pilote JDBC H2.
+ */
+package com.example.projetgl_ihm.amine.base_de_donnée;
 
-import com.example.projetgl_ihm.dtaabase.orowan.OrowanLauncher;
+import com.example.projetgl_ihm.amine.orowan.OrowanLauncher;
 
+import javax.xml.transform.Source;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.io.*;
 import java.sql.*;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class H2DatabaseConnection {
     private Connection conn = null;
+    private ArrayList<Double> TimeMean = new ArrayList<>();
+    private ArrayList<Double> SigmaMean = new ArrayList<>();
+    private ArrayList<Double> FrictionMean = new ArrayList<>();
+    private ArrayList<Double> SpeedMean = new ArrayList<>();
+
+    /**
+     * Constructeur par défaut de la classe H2DatabaseConnection.
+     */
     public H2DatabaseConnection(){}
 
+    /**
+     * Cette méthode établit une connexion à la base de données H2 en utilisant une URL, un nom d'utilisateur et un mot de passe.
+     */
     public void connection(){
         try {
             // Chargement du pilote JDBC H2
@@ -34,6 +52,9 @@ public class H2DatabaseConnection {
 
     }
 
+    /**
+     * Cette méthode ferme la connexion à la base de données H2.
+     */
     public void closeDatabase(){
         try {
             if (conn != null) {
@@ -44,7 +65,13 @@ public class H2DatabaseConnection {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Cette méthode permet de lire les données des capteurs pour chaque stand et de les insérer dans une base de données.
+     *
+     * @param path   Le chemin absolu du fichier stand.
+     * @param tab    Le séparateur utilisé dans le fichier CSV.
+     * @param stand  L'identifiant du stand dans lequel les données ont été collectées.
+     */
     public void ReadCSV_Stand(String path, String tab, String stand ){
 
         try {
@@ -104,58 +131,86 @@ public class H2DatabaseConnection {
             e.printStackTrace();
         }
     }
-    public void ComputeOrowan(int computeTime, String stand_id, int mat_id) throws SQLException, IOException, InterruptedException {
-        double time = 1;
-        ArrayList<Double> times = new ArrayList<Double>();
-        try {
+    /**
+     * Cette méthode permet faire appelle à orowan pour un type d'équiement à un stand donné. La méthode extrait les données des capteurs et compute orwan sur ces données toutes les 200 ms les 200 ms.
+     *
+     * @param mat_id   numéro_equipement.
+     * @param stand_id   numéro stand.
+     *
+     */
+    public void ComputeOrowan( String stand_id, int mat_id) throws SQLException, IOException, InterruptedException {
+        double time = 0;
 
-            // Établir une connexion à la base de données
-            String sqlQuery = String.format("SELECT ENTHICK, EXTHICK, ENTENS, EXTENS, DAIAMETER, YOUNGMODULUS, AVERAGESIGMA, MU, ROLLFORCE, FSLIP, XTIME FROM FILE_FORMAT WHERE STAND_ID = '%s' AND MATID = %d ;", stand_id, mat_id);
-            // Préparer la requête SQL
-            //String sql = "SELECT ENTHICK, EXTHICK, ENTENS, EXTENS, DAIAMETER, YOUNGMODULUS, AVERAGESIGMA, MU, ROLLFORCE, FSLIP,XTIME FROM FILE_FORMAT WHERE XTIME> 1 LIMIT 1";
-            PreparedStatement stmt = conn.prepareStatement(sqlQuery);
+        while (true) {
 
-            // Exécuter la requête et récupérer les résultats
-            ResultSet rs = stmt.executeQuery();
+            String formattedDouble = String.format(Locale.US, "%.2f", time);
+            boolean requete_reussit = false;
+            ArrayList<Double> times = new ArrayList<Double>();
+            try {
 
-            // Écrire les résultats dans un fichier CSV
-            String filename = "com/example/projetgl_ihm/dtaabase/file/orowan/input.csv";
-            FileWriter writer = new FileWriter(filename);
-            writer.append("Cas\tHe\tHs\tTe\tTs\tDiam_WR\tWRyoung\toffset ini\tmu_ini\tForce\tG\n");
-            // Parcourir les résultats et les afficher
-            while (rs.next()) {
-                double entHick = rs.getDouble("ENTHICK");
-                double extHick = rs.getDouble("EXTHICK");
-                double entEns = rs.getDouble("ENTENS");
-                double extEns = rs.getDouble("EXTENS");
-                double diameter = rs.getDouble("DAIAMETER");
-                double youngModulus = rs.getDouble("YOUNGMODULUS");
-                double averageSigma = rs.getDouble("AVERAGESIGMA");
-                double mu = rs.getDouble("MU");
-                double rollForce = rs.getDouble("ROLLFORCE");
-                double fSlip = rs.getDouble("FSLIP");
-                times.add(rs.getDouble("XTIME"));
+                // Établir une connexion à la base de données
+                String sqlQuery = String.format("SELECT ENTHICK, EXTHICK, ENTENS, EXTENS, DAIAMETER, YOUNGMODULUS, AVERAGESIGMA, MU, ROLLFORCE, FSLIP, XTIME FROM FILE_FORMAT WHERE XTIME > %s AND STAND_ID = '%s' AND MATID = %d LIMIT 1;", time, stand_id, mat_id);
+                System.out.println(sqlQuery);
+                // Préparer la requête SQL
+                PreparedStatement stmt = conn.prepareStatement(sqlQuery);
+                // Exécuter la requête et récupérer les résultats
+                ResultSet rs = stmt.executeQuery();
+                // Écrire les résultats dans un fichier CSV
+                String filename = "src/file/orowan/input.csv";
 
-                String line = String.format("%d\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\n",1, entHick, extHick,entEns, extEns, diameter, youngModulus, averageSigma, mu, rollForce, fSlip);
-                line =line.replaceAll(",",".");
-                writer.append(line);
-                // Faire quelque chose avec les données récupérées, par exemple les afficher
-                System.out.println("entHick: " + entHick+ "ext" +extHick+ ", entEns: " + entEns + ", extEns: " + extEns + ", diameter: " + diameter + ", youngModulus: " + youngModulus + ", averageSigma: " + averageSigma + ", mu: " + mu + ", rollForce: " + rollForce + ", fSlip: " + fSlip + ", xTime: " );
+                FileWriter writer = new FileWriter(filename);
+                writer.append("Cas\tHe\tHs\tTe\tTs\tDiam_WR\tWRyoung\toffset ini\tmu_ini\tForce\tG\n");
+                // Parcourir les résultats et les afficher
+
+                while (rs.next()) {
+                    requete_reussit = true;
+                    double entHick = rs.getDouble("ENTHICK");
+                    double extHick = rs.getDouble("EXTHICK");
+                    double entEns = rs.getDouble("ENTENS");
+                    double extEns = rs.getDouble("EXTENS");
+                    double diameter = rs.getDouble("DAIAMETER");
+                    double youngModulus = rs.getDouble("YOUNGMODULUS");
+                    double averageSigma = rs.getDouble("AVERAGESIGMA");
+                    double mu = rs.getDouble("MU");
+                    double rollForce = rs.getDouble("ROLLFORCE");
+                    double fSlip = rs.getDouble("FSLIP");
+                    times.add(rs.getDouble("XTIME"));
+
+                    String line = String.format("%d\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\n", 1, entHick, extHick, entEns, extEns, diameter, youngModulus, averageSigma, mu, rollForce, fSlip);
+                    System.out.println(line);
+                    line = line.replaceAll(",", ".");
+                    writer.append(line);
+
+                }
+                writer.flush();
+                writer.close();
+                // Fermer la connexion
+                rs.close();
+                stmt.close();
+            } catch (SQLException e) {
+                System.err.println("Erreur lors de la connexion à la base de données : " + e.getMessage());
             }
-            writer.flush();
-            writer.close();
-            // Fermer la connexion
-            rs.close();
-            stmt.close();
+            if(requete_reussit){
+                time +=0.2;
+            }
+            OrowanLauncher a = new OrowanLauncher();
+            a.launch("src/file/orowan/input.csv", "src/file/orowan/output.csv");
+            ReadCSV_CSV_Output("src/file/orowan/output.csv", "\t", stand_id, mat_id, times);
 
+            Thread.sleep(200);
 
-        } catch (SQLException e) {
-            System.err.println("Erreur lors de la connexion à la base de données : " + e.getMessage());
         }
-        OrowanLauncher a = new OrowanLauncher();
-        a.launch("com/example/projetgl_ihm/dtaabase/file/orowan/input.csv", "com/example/projetgl_ihm/dtaabase/file/orowan/output.csv");
-        ReadCSV_CSV_Output("com/example/projetgl_ihm/dtaabase/file/orowan/output.csv","\t", stand_id, mat_id, times);
+
     }
+    /**
+     * Cette méthode permet d'insérer les données calculé par OROWAN dans la base de donnée.
+     *
+     * @param path  chemin d'output d'orowan.
+     * @param tab   type de tabulation.
+     * @param stand_id numéro de stand
+     * @param mat_id numéro équipement
+     *
+     */
     public void ReadCSV_CSV_Output(String path, String tab, String stand_id ,int mat_id, ArrayList<Double> times){
 
         try {
@@ -207,106 +262,157 @@ public class H2DatabaseConnection {
 
     }
 
-    public ArrayList<ArrayList<Double>> Average(String Stand_ID, int mat_id, int computeTime) throws SQLException {
+    public ArrayList<Double> getTimeMean() {
+        return TimeMean;
+    }
 
-        ArrayList<ArrayList<Double>> resultat = new ArrayList<>();
+    public ArrayList<Double> getSigmaMean() {
+        return SigmaMean;
+    }
+
+    public ArrayList<Double> getFrictionMean() {
+        return FrictionMean;
+    }
+
+    public ArrayList<Double> getSpeedMean() {
+        return SpeedMean;
+    }
+    /**
+     * Cette méthode permet de calculer les moyennes toutes les 1 secondes et les insérer dans la table AVERAGE DE LA BASE DE DONNZ.
+     *
+     * @param time  temps pour lesquelles faires les moyennes si autre qu'une seconde.
+     * @param Stand_ID numéro de stand
+     * @param mat_id numéro équipement
+     *
+     */
+    public void Average(String Stand_ID, int mat_id, double time) throws SQLException, InterruptedException {
+        System.out.println(time);
+        String formattedDouble = String.format(Locale.US, "%.2f", time);
+
 
         ArrayList<Double> xtimeList = new ArrayList<>();
         ArrayList<Double> frictionList = new ArrayList<>();
         ArrayList<Double> sigmaMoyList = new ArrayList<>();
-        ArrayList<Double> rollingTorqueList = new ArrayList<>();
-
-        ArrayList<Double> xtimeValue = new ArrayList<>();
-        ArrayList<Double> frictionValue= new ArrayList<>();
-        ArrayList<Double> sigmaMoyValue= new ArrayList<>();
-        ArrayList<Double> rollingTorqueValue= new ArrayList<>();
-
-        ArrayList<Double> xtimeListMean = new ArrayList<>();
-        ArrayList<Double> frictionListMean = new ArrayList<>();
-        ArrayList<Double> sigmaMoyListMean= new ArrayList<>();
-        ArrayList<Double> rollingTorqueListMean = new ArrayList<>();
+        ArrayList<Double> rolspeedList = new ArrayList<>();
 
         Statement stmt = conn.createStatement();
 
 
-        String query = String.format("SELECT XTIME,FRICTION,SIGMA_MOY, FROM CSV_OUTPUT_FILE WHERE STAND_ID = '%s' AND MATID = %d", Stand_ID, mat_id);
 
-        ResultSet rs = stmt.executeQuery(query);
-
-        while (rs.next()) {
-            double xtime = rs.getDouble("XTIME");
-
-            double friction = rs.getDouble("FRICTION");
-            double sigmaMoy = rs.getDouble("SIGMA_MOY");
-
-            xtimeList.add(xtime);
-            frictionList.add(friction);
-            sigmaMoyList.add(sigmaMoy);
-        }
-
-        String query2 = String.format("Select WORK_ROLL_SPEED FROM FILE_FORMAT WHERE STAND_ID = '%s' AND MATID = %d", Stand_ID, mat_id);
-
-        ResultSet rs2 = stmt.executeQuery(query2);
-
-        while (rs2.next()) {
-
-            double rollingTorque = rs2.getDouble("WORK_ROLL_SPEED");
-
-            rollingTorqueList.add(rollingTorque);
-
-        }
-
-    System.out.println("XTIME List: " + xtimeList.size() +"2 "+xtimeList);
-    System.out.println("FRICTION List: " + frictionList.size() +"2 "+frictionList);
-    System.out.println("SIGMA_MOY List: " + sigmaMoyList.size() +"4 "+ sigmaMoyList);
-    System.out.println("Rool speed List: " + rollingTorqueList.size() +"2 "+ rollingTorqueList);
-
-        ArrayList<Double> timeList = new ArrayList<>();
-        ArrayList<Double> valueList = new ArrayList<>();
+            xtimeList.clear();
+            frictionList.clear();
+            sigmaMoyList.clear();
+            rolspeedList.clear();
 
 
-        int Time = computeTime;
-// Remplir les listes avec des valeurs de temps et de mesure
-        for (int i = 0; i < rollingTorqueList.size()-Time; i += Time) {
-            xtimeValue.add(xtimeList.get(i));
-            frictionValue.add(frictionList.get(i));
-            sigmaMoyValue.add(sigmaMoyList.get(i));
-            rollingTorqueValue.add(rollingTorqueList.get(i));
-        }
+            String query = String.format("SELECT XTIME,FRICTION,SIGMA_MOY, FROM CSV_OUTPUT_FILE WHERE XTIME > %s AND STAND_ID = '%s' AND MATID = %d LIMIT 5",time, Stand_ID, mat_id);
 
-        // définir la moyenne
-        int sublistSize = 5;
+            ResultSet rs = stmt.executeQuery(query);
 
-        for (int i = 0; i < xtimeValue.size(); i += sublistSize) {
-            List<Double> xtimeSubList = xtimeValue.subList(i, Math.min(i + sublistSize, xtimeValue.size()));
-            List<Double> frictionSubList = frictionValue.subList(i, Math.min(i + sublistSize, frictionValue.size()));
-            List<Double> sigmaMoySubList = sigmaMoyValue.subList(i, Math.min(i + sublistSize, sigmaMoyValue.size()));
-            List<Double> rollingTorqueSubList = rollingTorqueValue.subList(i, Math.min(i + sublistSize, rollingTorqueValue.size()));
+            while (rs.next()) {
+                double xtime = rs.getDouble("XTIME");
 
-            double xtimeMean = Collections.max(xtimeSubList);
-            double frictionMean = frictionSubList.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
-            double sigmaMoyMean = sigmaMoySubList.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
-            double rollingTorqueMean = rollingTorqueSubList.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
+                double friction = rs.getDouble("FRICTION");
+                double sigmaMoy = rs.getDouble("SIGMA_MOY");
+                time = xtime;
+                xtimeList.add(xtime);
+                frictionList.add(friction);
+                sigmaMoyList.add(sigmaMoy);
+            }
 
-            xtimeListMean.add(xtimeMean);
-            frictionListMean.add(frictionMean);
-            sigmaMoyListMean.add(sigmaMoyMean);
-            rollingTorqueListMean.add(rollingTorqueMean);
-        }
-        System.out.println("XTIME Value " + xtimeListMean.size() +"2 "+xtimeValue);
-        System.out.println("XTIME List Mean: " + xtimeListMean.size() +"2 "+xtimeListMean);
-        System.out.println("FRICTION List Mean: " + frictionListMean.size() +"2 "+frictionListMean);
-        System.out.println("SIGMA_MOY List MEAN: " + sigmaMoyListMean.size() +"4 "+ sigmaMoyListMean);
-        System.out.println("Roll speed List mean: " + rollingTorqueListMean.size() +"2 "+ rollingTorqueListMean);
+            String query2 = String.format("Select WORK_ROLL_SPEED FROM FILE_FORMAT WHERE XTIME > %s AND STAND_ID ='%s' AND MATID = %d  LIMIT 5", time, Stand_ID, mat_id);
 
-        resultat.add(xtimeListMean);
-        resultat.add(frictionListMean);
-        resultat.add(sigmaMoyListMean);
-        resultat.add(rollingTorqueValue);
+            ResultSet rs2 = stmt.executeQuery(query2);
 
-        return resultat;
+            while (rs2.next()) {
+
+                double rollingSpeed = rs2.getDouble("WORK_ROLL_SPEED");
+
+                rolspeedList.add(rollingSpeed);
+
+            }
+
+            double sum = 0.0;
+            double FrictionMean = 0.0;
+            if (frictionList.size()>4){
+                time +=1;
+
+                for (Double value : frictionList) {
+                    sum += value;
+                }
+                FrictionMean= sum / 5.0;
+
+            }
+            sum = 0.0;
+            double Sigma_MoyMean = 0.0;
+            if(sigmaMoyList.size()>4){
+                for (Double value : sigmaMoyList) {
+                    sum += value;
+                }
+                Sigma_MoyMean = sum / 5.0;
+            }
+
+            sum = 0.0;
+            double rolspeedMean = 0.0;
+            if (rolspeedList.size()>4){
+                for (Double value : rolspeedList) {
+                    sum += value;
+                }
+                rolspeedMean = sum / 5.0;
+            }
+            String sql = "INSERT INTO AVERAGE (FRICTION, TIME, STAND_ID, MATID, SIGMA, SPEED) VALUES (?, ?, ?, ?, ?, ?)";
+
+            PreparedStatement stmt_insert = conn.prepareStatement(sql);
+            stmt_insert.setDouble(1, FrictionMean);
+            stmt_insert.setDouble(2, time);
+            stmt_insert.setString(3, Stand_ID);
+            stmt_insert.setInt(4, mat_id);
+            stmt_insert.setDouble(5, Sigma_MoyMean);
+            stmt_insert.setDouble(6, rolspeedMean);
+
+            // Exécuter la requête SQL pour ajouter la nouvelle ligne dans la table "average_friction"
+            int rowsAffected = stmt_insert.executeUpdate();
+
+
 
     }
+    /**
+     * Cette méthode permet d'actualiser la liste des points à afficher toutes les seconde sur l'applicaiton
+     *
+     *
+     * @param StanD_id numéro de stand
+     * @param maT_id numéro équipement
+     *
+     */
+    public void getGraphiques(String StanD_id, int maT_id) {
+        this.SigmaMean.clear();
+        this.SpeedMean.clear();
+        this.TimeMean.clear();
+        this.FrictionMean.clear();
+        try {
 
+            Statement stmt = conn.createStatement();
+
+            String query = String.format("SELECT FRICTION, TIME, STAND_ID, MATID, SIGMA, SPEED FROM AVERAGE WHERE STAND_ID ='%s' AND MATID = %d", StanD_id, maT_id);
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                double time = rs.getDouble("TIME");
+                double speed = rs.getDouble("SPEED");
+                double friction = rs.getDouble("FRICTION");
+                double sigma = rs.getDouble("SIGMA");
+                // faire quelque chose avec les valeurs récupérées
+                this.SigmaMean.add(sigma);
+                this.SpeedMean.add(speed);
+                this.TimeMean.add(time);
+                this.FrictionMean.add(friction);
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
 

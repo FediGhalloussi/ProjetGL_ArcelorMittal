@@ -1,5 +1,8 @@
 package com.example.projetgl_ihm.GUI;
 
+import com.example.projetgl_ihm.Database.LoginUtil;
+import com.example.projetgl_ihm.Models.Employee;
+import com.example.projetgl_ihm.amine.base_de_donnée.H2DatabaseConnection;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.PauseTransition;
@@ -17,6 +20,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class GUIController {
     @FXML
@@ -40,8 +44,19 @@ public class GUIController {
 
     @FXML
     private Text errorLabel;
+    /**
 
-    public void loginAction() {
+     Simulates a login process when the login button is clicked.
+     Disables the login button and shows the loading pane.
+     After a simulated login process of 2 seconds, retrieves the entered username and password
+     and checks if they match the expected values ("user" and "password").
+     If the login is successful, prints a message to the console.
+     If the login fails, shows an error message on the errorLabel and makes the errorPane visible.
+     Hides the loading pane and enables the login button after the login process is finished.£
+
+     AT THE END START TO READ CSV WHICH REPRESENT SENSORS DATA
+     */
+    public void loginAction() throws SQLException, IOException, InterruptedException {
         // Disable the login button and show the loading pane
         loginButton.setDisable(true);
         loadingPane.setVisible(true);
@@ -68,14 +83,28 @@ public class GUIController {
         });
 
         pause.play();
+        // LANCER LA COMPUTATION DES CAPTEURS A la base de donnée
+        // en commentaire car notre base de donnée est déja chargée
+       //H2DatabaseConnection data_base = new H2DatabaseConnection();
+        //data_base.ReadCSV_Stand("1939351_F2.txt", "\t", "F2 ");
+       //data_base.ComputeOrowan("F2",1939351);
+        //data_base.ComputeOrowan("F3",1939351);
+       // data_base.closeDatabase();
     }
-
+    /**
+     * Handles the login button click event.
+     * Authenticates the user with the entered username and password using the LoginUtil class.
+     * If the authentication is successful, navigates the user to the DashboardOuvrier.fxml file.
+     * Otherwise, displays the errorPane with a message.
+     *
+     * @param event The event triggered by clicking the login button.
+     */
     @FXML
     private void handleLoginButton(ActionEvent event) {
         String username = usernameField.getText();
         String password = passwordField.getText();
-        //Employee employee = LoginUtil.authenticateUser(username, password);
-        if (/*employee != null*/ username.equals("admin")) {
+        Employee employee = LoginUtil.authenticateUser(username, password);
+        if (employee != null) {
             loadingPane.setVisible(true);
             // Affiche le loadingPane pendant que le traitement de la connexion est en cours
             // Animation de zoom-out sur le bouton de réessai
@@ -89,17 +118,12 @@ public class GUIController {
             );
             timeline.play();
             loadingPane.setVisible(true);
-            System.out.println("test");
+
             // Simule un délai de traitement
             PauseTransition delay = new PauseTransition(Duration.seconds(3));
             delay.setOnFinished(e -> {
                 // Masque le loadingPane une fois que la connexion est réussie
                 loadingPane.setVisible(false);
-                // Affiche un message de bienvenue
-//                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//                alert.setTitle("Connexion réussie");
-//                alert.setHeaderText("Bienvenue, " + username + " !");
-//                alert.showAndWait();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("DashboardOuvrier.fxml"));
                 Parent ParametresRoot = null;
                 try {
@@ -109,16 +133,14 @@ public class GUIController {
                 }
 
                 DashboardOuvrierController controller = loader.getController();
-                controller.setUsername(username);
 
                 Scene ParametresScene = new Scene(ParametresRoot);
-
+                controller.setGrade(employee.getGrade());
                 // Récupérer le stage actuel à partir de l'événement
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
                 stage.setScene(ParametresScene); // Remplacer la scène actuelle par la scène des paramètres
-
-
+                controller.setUsername(username);
             });
             delay.play();
         } else {
@@ -127,17 +149,18 @@ public class GUIController {
             errorPane.setMouseTransparent(false);
 
         }
-
     }
+    /**
 
+     Cette méthode est appelée lorsque l'utilisateur clique sur le bouton "Réessayer" dans le panneau d'erreur. Elle réinitialise les champs de saisie et anime le bouton de réessai avec une séquence de KeyFrames.
+     @param event un événement d'action généré lors de l'appui sur le bouton "Réessayer"
+     */
     @FXML
     private void handleRetryButton(ActionEvent event) {
         // Réinitialisation des champs de saisie
         usernameField.setText("");
         passwordField.setText("");
 
-        // Masquage du message d'erreur
-        //errorLabel.setVisible(false);
 
         // Animation de zoom-out sur le bouton de réessai
         Timeline timeline = new Timeline(

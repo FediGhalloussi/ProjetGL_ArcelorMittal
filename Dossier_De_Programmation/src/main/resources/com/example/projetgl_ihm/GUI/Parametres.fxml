@@ -12,7 +12,7 @@
                 <Text fill="white" styleClass="title2" text="Users management" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0" />
                 <Text fill="white" styleClass="text-white" text="Add User" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                 <TextField fx:id="usernameField" promptText="Enter username" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                <TextField fx:id="emailField" promptText="Enter password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <TextField fx:id="passwordField" promptText="Enter password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <Button fx:id="addButton" onAction="#handleAddUser" text="Add user" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                 <Text fill="white" styleClass="text-white" text="Search User" GridPane.columnIndex="0" GridPane.rowIndex="3" />
                 <TextField fx:id="userField" promptText="Enter username" GridPane.columnIndex="0" GridPane.rowIndex="4" />

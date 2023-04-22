@@ -1,13 +1,22 @@
 package com.example.projetgl_ihm.dtaabase.orowan;
 import java.io.*;
 
-
+/**
+ * Cette classe permet d'excuter le .exe Orowan
+ */
 public class OrowanLauncher {
 
     public OrowanLauncher() {
 
     }
-
+    /**
+     * Lance l'exécution de l'application Orowan en ligne de commande avec les paramètres spécifiés.
+     *
+     * @param pathInput  Le chemin vers le fichier d'entrée de l'application.
+     * @param pathOutput Le chemin vers le fichier de sortie de l'application.
+     * @throws IOException            Si une erreur d'entrée/sortie se produit lors de l'exécution de l'application.
+     * @throws InterruptedException   Si le thread en cours est interrompu pendant l'exécution de l'application.
+     */
     public void launch(String pathInput, String pathOutput) throws IOException, InterruptedException {
         String[] arguments = {"com/example/projetgl_ihm/dtaabase/orowan/Orowan_x64.exe.exe", "i", "c",pathInput, pathOutput};
 

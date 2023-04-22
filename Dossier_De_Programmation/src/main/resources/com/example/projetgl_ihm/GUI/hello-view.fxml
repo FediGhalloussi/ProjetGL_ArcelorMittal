@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+
 <StackPane fx:id="root" styleClass="stack-pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projetgl_ihm.GUI.GUIController">
     <StackPane fx:id="loginPane" prefHeight="1080.0" prefWidth="1920.0" styleClass="login-pane" StackPane.alignment="CENTER">
         <VBox alignment="CENTER" spacing="50" VBox.vgrow="ALWAYS">
@@ -20,9 +21,7 @@
     </StackPane>
     <Pane fx:id="logoPane" mouseTransparent="true" prefHeight="340.0" prefWidth="608.0" styleClass="logo-pane">
         <ImageView fitHeight="100" fitWidth="100" preserveRatio="true">
-            <image>
-                <Image url="@logo.png" />
-            </image>
+
         </ImageView>
     </Pane>
     <StackPane fx:id="loadingPane" mouseTransparent="true" styleClass="loading-pane" visible="false">

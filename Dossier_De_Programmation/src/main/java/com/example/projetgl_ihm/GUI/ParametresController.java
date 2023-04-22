@@ -67,8 +67,59 @@ public class ParametresController {
         // Code to add user right
         String username = usernameField.getText();
         String password = passwordField.getText();
+        if (isValidPassword(password)) {
+            registerUser(username, password, "worker");
+            ObservableList<String> userList = FXCollections.observableArrayList();
+            List<Employee> employees = getAllUsers();
 
-        registerUser(username, password, "worker");
+            // Add the usernames of the employees to the userList
+            for (Employee employee : employees) {
+                userList.add(employee.getUsername() + " : " + employee.getGrade());
+            }
+
+            // Set the items of the ListView to the userList
+            userRightsList.setItems(userList);
+        } else {
+            // Inform user that password is not secure enough
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Invalid Password");
+            alert.setHeaderText(null);
+            alert.setContentText("Le mot de passe doit contenir au moins 9 caractères dont un symbole, un chiffre et une majuscule ");
+
+            alert.showAndWait();
+        }
+
+        ObservableList<String> userList = FXCollections.observableArrayList();
+        List<Employee> employees = getAllUsers();
+
+        // Add the usernames of the employees to the userList
+        for (Employee employee : employees) {
+            userList.add(employee.getUsername() + " : " + employee.getGrade());
+        }
+
+        // Set the items of the ListView to the userList
+        userRightsList.setItems(userList);
+    }
+
+    private boolean isValidPassword(String password) {
+        // Add your own password security requirements here
+        if (password.length() < 8) {
+            return false;
+        }
+        if (!password.matches(".*[a-z].*")) {
+            return false;
+        }
+        if (!password.matches(".*[A-Z].*")) {
+            return false;
+        }
+        if (!password.matches(".*[0-9].*")) {
+            return false;
+        }
+        if (!password.matches(".*[!@#$%^&*()].*")) {
+            return false;
+        }
+
+        return true;
     }
 
     @FXML
@@ -113,6 +164,7 @@ public class ParametresController {
         timeline.play();
         String username = userRightsList.getSelectionModel().getSelectedItem().split(" : ")[0];
         String grade = userRightsList.getSelectionModel().getSelectedItem().split(" : ")[1];
+        updateUserGrade(username);
 
         // Create the ListView and the ObservableList to hold the items
         ObservableList<String> userList = FXCollections.observableArrayList();
@@ -227,15 +279,15 @@ public class ParametresController {
         ObservableList<String> userList = FXCollections.observableArrayList();
 
         // Retrieve all the employees from the database
-//        List<Employee> employees = getAllUsers();
-//
-//        // Add the usernames of the employees to the userList
-//        for (Employee employee : employees) {
-//            userList.add(employee.getUsername() + " : " + employee.getGrade());
-//        }
-//
-//        // Set the items of the ListView to the userList
-//        userRightsList.setItems(userList);
+        List<Employee> employees = getAllUsers();
+
+        // Add the usernames of the employees to the userList
+        for (Employee employee : employees) {
+            userList.add(employee.getUsername() + " : " + employee.getGrade());
+        }
+
+        // Set the items of the ListView to the userList
+        userRightsList.setItems(userList);
     }
 
 
@@ -255,6 +307,8 @@ public class ParametresController {
             // Forcer la réinitialisation du contrôleur de la scène du tableau de bord
             DashboardOuvrierController dashboardController = loader.getController();
             dashboardController.initialize();
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
