@@ -1,8 +1,7 @@
 package com.example.projetgl_ihm.GUI;
 
-import com.example.projetgl_ihm.Database.LoginUtil;
-import com.example.projetgl_ihm.Models.Employee;
-import com.example.projetgl_ihm.amine.base_de_donnée.H2DatabaseConnection;
+import com.example.projetgl_ihm.utils.LoginUtil;
+import com.example.projetgl_ihm.models.Employee;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.PauseTransition;
