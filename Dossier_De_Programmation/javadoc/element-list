@@ -1,0 +1,6 @@
+module:com.example.projetgl_ihm
+com.example.projetgl_ihm.dtaabase.base_de_donnee
+com.example.projetgl_ihm.dtaabase.orowan
+com.example.projetgl_ihm.GUI
+com.example.projetgl_ihm.models
+com.example.projetgl_ihm.utils
