@@ -1,19 +1,15 @@
 package com.example.projetgl_ihm.GUI;
-import com.example.projetgl_ihm.amine.base_de_donnée.H2DatabaseConnection;
+import com.example.projetgl_ihm.dtaabase.base_de_donnée.H2DatabaseConnection;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -23,8 +19,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Node;
-
-import static java.rmi.Naming.lookup;
 
 
 public class DashboardOuvrierController {
@@ -43,7 +37,6 @@ public class DashboardOuvrierController {
     private CheckBox speedCheckBox;
     @FXML
     private CheckBox frictionCheckBox;
-
     @FXML
     private Text nomLabel;
 
@@ -54,7 +47,7 @@ public class DashboardOuvrierController {
     @FXML
     public void initialize() {
         ParametresButton.setOnAction(this::ouvrirParametres);
-        logoutButton.setOnAction(this::handleLogoutButton);
+        //logoutButton.setOnAction(this::handleLogoutButton);
     }
 
     public void setUsername(String username) {

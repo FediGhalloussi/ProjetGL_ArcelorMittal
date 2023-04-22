@@ -5,7 +5,7 @@ module com.example.projetgl_ihm {
     requires java.rmi;
 
 
-    exports com.example.projetgl_ihm.Database;
+    exports com.example.projetgl_ihm.utils;
     exports com.example.projetgl_ihm.GUI;
     opens com.example.projetgl_ihm.GUI to javafx.fxml;
 }

@@ -1,4 +1,4 @@
-package com.example.projetgl_ihm.amine.orowan;
+package com.example.projetgl_ihm.dtaabase.orowan;
 import java.io.*;
 
 
@@ -9,7 +9,7 @@ public class OrowanLauncher {
     }
 
     public void launch(String pathInput, String pathOutput) throws IOException, InterruptedException {
-        String[] arguments = {"com/example/projetgl_ihm/amine/orowan/Orowan_x64.exe.exe", "i", "c",pathInput, pathOutput};
+        String[] arguments = {"com/example/projetgl_ihm/dtaabase/orowan/Orowan_x64.exe.exe", "i", "c",pathInput, pathOutput};
 
         try {
             // Créer un processus pour l'exécutable

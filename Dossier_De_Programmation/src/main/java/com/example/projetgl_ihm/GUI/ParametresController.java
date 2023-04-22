@@ -3,8 +3,7 @@ package com.example.projetgl_ihm.GUI;
 import java.io.IOException;
 import java.util.List;
 
-import com.example.projetgl_ihm.GUI.DashboardOuvrierController;
-import com.example.projetgl_ihm.Models.Employee;
+import com.example.projetgl_ihm.models.Employee;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -18,12 +17,10 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Node;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.util.Duration;
 
-import static com.example.projetgl_ihm.Database.LoginUtil.*;
+import static com.example.projetgl_ihm.utils.LoginUtil.*;
 
 public class ParametresController {
 

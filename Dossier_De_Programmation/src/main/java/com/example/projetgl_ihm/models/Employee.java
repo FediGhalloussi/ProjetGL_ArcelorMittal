@@ -1,4 +1,4 @@
-package com.example.projetgl_ihm.Models;
+package com.example.projetgl_ihm.models;
 
 public class Employee {
     private String username;

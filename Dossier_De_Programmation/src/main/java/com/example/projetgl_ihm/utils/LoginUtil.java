@@ -1,8 +1,8 @@
-package com.example.projetgl_ihm.Database;
+package com.example.projetgl_ihm.utils;
 
-import com.example.projetgl_ihm.Models.Employee;
-import com.example.projetgl_ihm.Models.Engineer;
-import com.example.projetgl_ihm.Models.Worker;
+import com.example.projetgl_ihm.models.Employee;
+import com.example.projetgl_ihm.models.Engineer;
+import com.example.projetgl_ihm.models.Worker;
 
 import java.sql.*;
 import java.util.ArrayList;

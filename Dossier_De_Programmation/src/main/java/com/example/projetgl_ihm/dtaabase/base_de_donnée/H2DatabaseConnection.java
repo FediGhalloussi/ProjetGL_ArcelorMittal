@@ -1,6 +1,6 @@
-package com.example.projetgl_ihm.amine.base_de_donnée;
+package com.example.projetgl_ihm.dtaabase.base_de_donnée;
 
-import com.example.projetgl_ihm.amine.orowan.OrowanLauncher;
+import com.example.projetgl_ihm.dtaabase.orowan.OrowanLauncher;
 
 import java.util.ArrayList;
 import java.io.*;
@@ -119,7 +119,7 @@ public class H2DatabaseConnection {
             ResultSet rs = stmt.executeQuery();
 
             // Écrire les résultats dans un fichier CSV
-            String filename = "com/example/projetgl_ihm/amine/file/orowan/input.csv";
+            String filename = "com/example/projetgl_ihm/dtaabase/file/orowan/input.csv";
             FileWriter writer = new FileWriter(filename);
             writer.append("Cas\tHe\tHs\tTe\tTs\tDiam_WR\tWRyoung\toffset ini\tmu_ini\tForce\tG\n");
             // Parcourir les résultats et les afficher
@@ -153,8 +153,8 @@ public class H2DatabaseConnection {
             System.err.println("Erreur lors de la connexion à la base de données : " + e.getMessage());
         }
         OrowanLauncher a = new OrowanLauncher();
-        a.launch("com/example/projetgl_ihm/amine/file/orowan/input.csv","com/example/projetgl_ihm/amine/file/orowan/output.csv");
-        ReadCSV_CSV_Output("com/example/projetgl_ihm/amine/file/orowan/output.csv","\t", stand_id, mat_id, times);
+        a.launch("com/example/projetgl_ihm/dtaabase/file/orowan/input.csv", "com/example/projetgl_ihm/dtaabase/file/orowan/output.csv");
+        ReadCSV_CSV_Output("com/example/projetgl_ihm/dtaabase/file/orowan/output.csv","\t", stand_id, mat_id, times);
     }
     public void ReadCSV_CSV_Output(String path, String tab, String stand_id ,int mat_id, ArrayList<Double> times){
 
